@@ -1,0 +1,61 @@
+#!/bin/sh
+
+# test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+alias ls='ls --color=auto -CF'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias diff='diff --color=auto'
+alias ip='ip --color=auto'
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# alias bright='sudo chmod 666 /sys/class/backlight/intel_backlight/brightness' # for Arch dualboot
+alias cwd='pwd | clip.exe' # clip.exe for WSL and xclip for xorg based systems
+alias hr='printf "%$(tput cols)s\n" | tr " " "-"'
+
+alias v='nvim'
+alias apt='sudo apt'
+
+alias dotfiles_git='/usr/bin/git --git-dir=/home/ishaan/.dotfiles/ --work-tree=/home/ishaan'
+
+export EDITOR='vi'
+export VISUAL='vi'
+
+eval "$(zoxide init "$(echo "$SHELL" | tr '/' '\n' | tail -1)")"
+
+[ -d "$HOME/.local/share/nvim/mason/bin/" ] && export PATH="$HOME/.local/share/nvim/mason/bin/:$PATH"
+[ -d "/usr/local/cuda-12.2/bin/" ] && export PATH="/usr/local/cuda-12.2/bin/:$PATH"
+[ -d "/usr/local/cuda-12.2/lib64/" ] && export LD_LIBRARY_PATH="/usr/local/cuda-12.2/lib64/:$LD_LIBRARY_PATH"
+
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env" # Rust
+[ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" # Haskell
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)" # make less more friendly for non-text input files, see lesspipe(1)
+
+get() {  # my custom command to copy paths of files and folders to clipboard using fuzy finding
+  # find ${2:-'.'} -name ".*" | fzf -m -1 -q ${1:-''} | tr '\n' ' ' | clip.exe
+  find "${2:-'.'}" -name ".*" | fzf -m -1 -q "${1:-''}" | tr '\n' ' ' | clip.exe
+}
+
+mars() {
+  dir=$(pwd)
+  mars_dir="/usr/local/bin/MARS"
+  cd $mars_dir || return
+  case "$1" in
+      "/"*) java Mars "$1" ;;
+      # "/"*) echo "absolute path" ;;
+      # *) [  -z "$1" ] && java Mars || java Mars "$dir/$1" ;;
+      # *) [  -z "$1" ] && echo "No Path" || echo "Relative Path" ;;
+      *)
+          if [  -z "$1" ]; then
+              java Mars # echo "No Path"
+          else
+              java Mars "$dir/$1" # echo "Relative Path"
+          fi
+          ;;
+  esac
+  cd "$dir" || exit
+}
+
