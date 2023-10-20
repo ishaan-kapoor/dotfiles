@@ -52,6 +52,9 @@ set signcolumn=yes
 set colorcolumn=80
 set cmdheight=2
 
+set visualbell
+set t_vb=
+
 hi Normal guibg=NONE ctermbg=NONE
 autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 autocmd vimenter * hi EndOfBuffer guibg=NONE ctermbg=NONE
