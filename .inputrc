@@ -3,3 +3,35 @@ $include /etc/inputrc
 set completion-ignore-case on
 set bell-style none
 
+set editing-mode vi
+set show-mode-in-prompt on
+# set vi-ins-mode-string (ins)\1\e[5 q\2
+# set vi-cmd-mode-string \033[1;32m(cmd)\1\e[1 q\2
+# Green blinking line cursor
+set vi-ins-mode-string \1\e[5 q\e]12;green\a\2
+# Orange blinking block cursor
+set vi-cmd-mode-string \1\e[1 q\e]12;orange\a\2
+# FOR THE NUMBER AFTER `\e[`:
+#     0: blinking block
+#     1: blinking block (default)
+#     2: steady block
+#     3: blinking underline
+#     4: steady underline
+#     5: blinking bar (xterm)
+#     6: steady bar (xterm)
+
+# If there are multiple matches for completion, Tab should cycle through them
+TAB: menu-complete
+# And Shift-Tab should cycle backwards
+"\e[Z": menu-complete-backward
+# Display a list of the matching files
+set show-all-if-ambiguous on
+# Perform partial (common) completion on the first Tab press, only start
+# cycling full results on the second Tab press (from bash version 5)
+set menu-complete-display-prefix on
+
+# "\e[A":history-search-backward
+# "\e[B":history-search-forward
+# Cycle through history based on characters already typed on the line
+Control-j:history-search-forward
+Control-k:history-search-backward

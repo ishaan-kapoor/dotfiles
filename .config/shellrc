@@ -1,5 +1,7 @@
 #!/bin/sh
 
+bind -m vi-insert '"kj":vi-movement-mode'
+
 # test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 alias ls='ls --color=auto -CF'
 alias grep='grep --color=auto'
@@ -17,13 +19,14 @@ alias cwd='pwd | clip.exe' # clip.exe for WSL and xclip for xorg based systems
 alias hr='printf "%$(tput cols)s\n" | tr " " "-"'
 
 alias v='nvim'
+alias cls='clear'
 alias apt='sudo apt'
 alias npm='sudo npm'
 
 alias dotfiles_git='/usr/bin/git --git-dir=/home/ishaan/.dotfiles/ --work-tree=/home/ishaan'
 
-export EDITOR='vi'
-export VISUAL='vi'
+export EDITOR='vim'
+export VISUAL='vim'
 
 eval "$(zoxide init "$(echo "$SHELL" | tr '/' '\n' | tail -1)")"
 alias cd='z'
