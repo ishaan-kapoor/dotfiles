@@ -21,6 +21,7 @@ alias hr='printf "%$(tput cols)s\n" | tr " " "-"'
 alias v='nvim'
 alias cls='clear'
 alias apt='sudo apt'
+alias nala='sudo nala'
 alias npm='sudo npm'
 
 alias dotfiles_git='/usr/bin/git --git-dir=/home/ishaan/.dotfiles/ --work-tree=/home/ishaan'
