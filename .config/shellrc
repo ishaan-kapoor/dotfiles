@@ -1,6 +1,7 @@
 #!/bin/sh
 
 bind -m vi-insert '"kj":vi-movement-mode'
+# bind -m vi-command 'Control-l: clear-screen'
 
 # test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 alias ls='ls --color=auto -CF'
@@ -10,24 +11,28 @@ alias egrep='egrep --color=auto'
 alias diff='diff --color=auto'
 alias ip='ip --color=auto'
 
-alias rm='rm -i'
+# alias rm='rm -i'
+alias rm='echo "trash-put ??" && rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
 # alias bright='sudo chmod 666 /sys/class/backlight/intel_backlight/brightness' # for Arch dualboot
 alias cwd='pwd | clip.exe' # clip.exe for WSL and xclip for xorg based systems
 alias hr='printf "%$(tput cols)s\n" | tr " " "-"'
+alias :wq='exit' # cause why not
+alias :q='exit' # cause why not
 
 alias v='nvim'
 alias cls='clear'
 alias apt='sudo apt'
 alias nala='sudo nala'
-alias npm='sudo npm'
+# alias npm='sudo npm'
 
 alias dotfiles_git='/usr/bin/git --git-dir=/home/ishaan/.dotfiles/ --work-tree=/home/ishaan'
 
 export EDITOR='vim'
 export VISUAL='vim'
+export BROWSER="/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
 
 eval "$(zoxide init "$(echo "$SHELL" | tr '/' '\n' | tail -1)")"
 alias cd='z'
@@ -42,4 +47,8 @@ alias cd='z'
 
 get() {  # my custom command to copy paths of files and folders to clipboard using fuzy finding
   find "${2:-'.'}" -name ".*" | fzf -m -1 -q "${1:-''}" | tr '\n' ' ' | clip.exe
+}
+
+dora() { # dora the explorer yayy
+  explorer.exe "${1:-.}"
 }

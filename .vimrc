@@ -51,6 +51,7 @@ set scrolloff=8
 set signcolumn=yes
 set colorcolumn=80
 set cmdheight=2
+set ruler
 
 set visualbell
 set t_vb=

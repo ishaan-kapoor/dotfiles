@@ -45,3 +45,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
+if [ -f /etc/bash.command-not-found ]; then
+    . /etc/bash.command-not-found
+    # sudo wget -O /etc/bash.command-not-found https://raw.githubusercontent.com/hkbakke/bash-insulter/master/src/bash.command-not-found
+fi
