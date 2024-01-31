@@ -1,3 +1,15 @@
 [user]
 	email = ishaankapoor2506@gmail.com
 	name = ishaan-kapoor
+[core]
+	editor = vim
+[status]
+	relativePaths = false # false = show path relative to git root, not relative to cwd
+[log]
+	abbrevCommit = true
+	follow = true
+[format]
+	pretty = %C(yellow)%h%C(red)%d%C(reset) %s %C(green)(%cr) %C(bold blue)%an%C(reset)
+[diff]
+	colorMoved = true # moved lines colored different than added/removed
+	colorMovedWS = ignore-all-space

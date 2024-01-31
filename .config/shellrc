@@ -10,15 +10,24 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias diff='diff --color=auto'
 alias ip='ip --color=auto'
+alias curl='curl --progress-bar'
 
 # alias rm='rm -i'
-alias rm='echo "trash-put ??" && rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
+# alias rm='echo "trash-put ??" && rm -vi'
+alias cp='cp -vi'
+alias mv='mv -vi'
+alias ln='ln -vwi'
+
+# GLOBAL ALIAS (to be used at the end, mostly) for zsh
+# alias -g G='| rg'
+# alias -g B='| bat'
+# alias -g C='| clip.exe ; echo "Copied."' # copy
+# alias -g N='| wc -l | tr -d " "'       # count lines
+# alias -g L='| less'
 
 # alias bright='sudo chmod 666 /sys/class/backlight/intel_backlight/brightness' # for Arch dualboot
 alias cwd='pwd | clip.exe' # clip.exe for WSL and xclip for xorg based systems
-alias hr='printf "%$(tput cols)s\n" | tr " " "-"'
+alias hr='printf "%$(tput cols)s\n" | tr " " "-"'  # a separator line
 alias :wq='exit' # cause why not
 alias :q='exit' # cause why not
 
@@ -26,6 +35,7 @@ alias v='nvim'
 alias cls='clear'
 alias apt='sudo apt'
 alias nala='sudo nala'
+alias info='info --vi-keys'
 # alias npm='sudo npm'
 
 alias dotfiles_git='/usr/bin/git --git-dir=/home/ishaan/.dotfiles/ --work-tree=/home/ishaan'
@@ -34,6 +44,7 @@ export EDITOR='vim'
 export VISUAL='vim'
 export BROWSER="/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
 
+# eval "$(thefuck --alias --enable-experimental-instant-mode)"
 eval "$(zoxide init "$(echo "$SHELL" | tr '/' '\n' | tail -1)")"
 alias cd='z'
 
@@ -50,5 +61,12 @@ get() {  # my custom command to copy paths of files and folders to clipboard usi
 }
 
 dora() { # dora the explorer yayy
-  explorer.exe "${1:-.}"
+  path="${1:-.}"
+  absolute_path=$(realpath "$path")
+  windows_path=$(wslpath -w "$absolute_path")
+  explorer.exe "$windows_path"
+}
+
+hexdiff() { # diff in hex
+  bash -c "diff --color=auto -y <(xxd $1) <(xxd $2)" | less
 }
