@@ -12,8 +12,8 @@ alias diff='diff --color=auto'
 alias ip='ip --color=auto'
 alias curl='curl --progress-bar'
 
-# alias rm='rm -i'
-# alias rm='echo "trash-put ??" && rm -vi'
+# alias rm='rm -vi'
+alias rm='echo "trash-put ??" && rm -vi'
 alias cp='cp -vi'
 alias mv='mv -vi'
 alias ln='ln -vwi'
@@ -36,6 +36,8 @@ alias cls='clear'
 alias apt='sudo apt'
 alias nala='sudo nala'
 alias info='info --vi-keys'
+alias python='python3'
+alias git_log=' git LOG $(git rev-list -g --all)'
 # alias npm='sudo npm'
 
 alias dotfiles_git='/usr/bin/git --git-dir=/home/ishaan/.dotfiles/ --work-tree=/home/ishaan'
@@ -70,3 +72,5 @@ dora() { # dora the explorer yayy
 hexdiff() { # diff in hex
   bash -c "diff --color=auto -y <(xxd $1) <(xxd $2)" | less
 }
+
+notify-send() { wsl-notify-send.exe --category $WSL_DISTRO_NAME "${@}"; }

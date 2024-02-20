@@ -9,7 +9,9 @@
 	abbrevCommit = true
 	follow = true
 [format]
-	pretty = %C(yellow)%h%C(red)%d%C(reset) %s %C(green)(%cr) %C(bold blue)%an%C(reset)
+	pretty = oneline
 [diff]
 	colorMoved = true # moved lines colored different than added/removed
 	colorMovedWS = ignore-all-space
+[alias]
+	LOG = log --raw --graph --pretty=format:'%Cred%h %Creset%s%Cgreen%d%n%aN %Cblue(%ah)%Creset%n%b' # $(git rev-list -g --all)
