@@ -14,4 +14,12 @@
 	colorMoved = true # moved lines colored different than added/removed
 	colorMovedWS = ignore-all-space
 [alias]
-	LOG = log --raw --graph --pretty=format:'%Cred%h %Creset%s%Cgreen%d%n%aN %Cblue(%ah)%Creset%n%b' # $(git rev-list -g --all)
+	; LOG = log --raw --graph --pretty=format:'%Cred%h %Creset%s%Cgreen%d%n%aN %Cblue(%ah)%Creset%n%b' # $(git rev-list -g --all)
+	LOG = !git log --raw --graph --pretty=format:'%Cred%h %Creset%s %Cgreen%d%n%aN %Cblue(%ah)%Creset%n%b' $(git rev-list -g --all)
+	BRANCH = !~/.local/bin/better-branch
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[init]
+	defaultBranch = main
