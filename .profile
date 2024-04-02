@@ -27,4 +27,4 @@ if [ -d "$HOME/.local/bin" ] ; then
 fi
 
 export LESS="$LESS -R -Q"
-/home/ishaan/.local/bin/pujji &
+# /home/ishaan/.local/bin/pujji &

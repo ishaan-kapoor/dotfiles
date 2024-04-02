@@ -59,7 +59,7 @@ alias cd='z'
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)" # make less more friendly for non-text input files, see lesspipe(1)
 
 get() {  # my custom command to copy paths of files and folders to clipboard using fuzy finding
-  find "${2:-'.'}" -name ".*" | fzf -m -1 -q "${1:-''}" | tr '\n' ' ' | clip.exe
+  find "${2:-.}" -name ".*" | fzf -m -1 -q "${1:-i}" | tr '\n' ' ' | clip.exe
 }
 
 dora() { # dora the explorer yayy
