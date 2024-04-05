@@ -1,25 +1,91 @@
 [user]
-	email = ishaankapoor2506@gmail.com
-	name = ishaan-kapoor
+  email = ishaankapoor2506@gmail.com
+  name = ishaan-kapoor
 [core]
-	editor = vim
+  editor = vim
 [status]
-	relativePaths = false # false = show path relative to git root, not relative to cwd
+  relativePaths = false # false = show path relative to git root, not relative to cwd
 [log]
-	abbrevCommit = true
-	follow = true
+  abbrevCommit = true
+  follow = true
 [format]
-	pretty = oneline
+  pretty = oneline
 [diff]
-	colorMoved = true # moved lines colored different than added/removed
-	colorMovedWS = ignore-all-space
+  colorMoved = true # moved lines colored different than added/removed
+  colorMovedWS = ignore-all-space
 [alias]
-	; LOG = log --raw --graph --pretty=format:'%Cred%h %Creset%s%Cgreen%d%n%aN %Cblue(%ah)%Creset%n%b' # $(git rev-list -g --all)
-	LOG = !git log --raw --graph --pretty=format:'%Cred%h %Creset%s %Cgreen%d%n%aN %Cblue(%ah)%Creset%n%b' $(git rev-list -g --all)
-	BRANCH = !~/.local/bin/better-branch
+  ; LOG = log --raw --graph --pretty=format:'%Cred%h %Creset%s%Cgreen%d%n%aN %Cblue(%ah)%Creset%n%b' # $(git rev-list -g --all)
+  LOG = !git log --raw --graph --pretty=format:'%Cred%h %Creset%s %Cgreen%d%n%aN %Cblue(%ah)%Creset%n%b' $(git rev-list -g --all)
+  BRANCH = !~/.local/bin/better-branch
+  s = status
+  c = commit -m
+  aa = add -A
+  ca = !git add -A && git commit
+  remotes = remote -v
 [column]
-	ui = auto
+  ui = auto
 [branch]
-	sort = -committerdate
+  sort = -committerdate
 [init]
-	defaultBranch = main
+  defaultBranch = main
+[color "status"]
+  added = green
+  changed = yellow
+  untracked = red dim
+  header = dim white
+  branch = cyan
+  nobranch = red
+; copied from https://github.com/dlvhdr/dotfiles/blob/main/.config/git/config
+[color]
+  pager = true
+  ui = true
+  status = auto
+  diff = auto
+  branch = auto
+  showBranch = auto
+  interactive = auto
+  grep = auto
+[color "branch"]
+  current = green bold
+  local = yellow dim
+  remote = blue
+
+[color "decorate"]
+  branch = blue
+  remoteBranch = magenta
+  tag = magenta
+  stash = cyan
+  HEAD = blue
+
+[color "interactive"]
+  prompt = red
+  header = red bold
+  error = red
+  help = black bold
+
+[color "blame"]
+    highlightRecent = 237, 20 month ago, 238, 19 month ago, 239, 18 month ago, 240, 17 month ago, 241, 16 month ago, 242, 15 month ago, 243, 14 month ago, 244, 13 month ago, 245, 12 month ago, 246, 11 month ago, 247, 10 month ago, 248, 9 month ago, 249, 8 month ago, 250, 7 month ago, 251, 6 month ago, 252, 5 month ago, 253, 4 month ago, 254, 3 month ago, 231, 2 month ago, 230, 1 month ago, 229, 3 weeks ago, 228, 2 weeks ago, 227, 1 week ago, 226
+
+[delta]
+  syntax-theme = tokyonight_night
+  navigate = true
+  dark = true
+  side-by-side = false
+  file-modified-label = modified:
+  features = unobtrusive-line-numbers decorations
+
+[delta "decorations"]
+    file-style = bold yellow ul
+    file-decoration-style = ul "#555555"
+    hunk-header-decoration-style = omit
+    commit-decoration-style = none
+
+[delta "unobtrusive-line-numbers"]
+    line-numbers = true
+    line-numbers-minus-style = "#3d4163"
+    line-numbers-zero-style = "#3d4163"
+    line-numbers-plus-style = "#3d4163"
+    line-numbers-left-style = "#3d4163"
+    line-numbers-right-style = "#3d4163"
+    line-numbers-left-format = "{nm:>4}│"
+    line-numbers-right-format = "{np:>4}│"

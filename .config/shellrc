@@ -16,7 +16,7 @@ alias curl='curl --progress-bar'
 alias rm='echo "trash-put ??" && rm -vi'
 alias cp='cp -vi'
 alias mv='mv -vi'
-alias ln='ln -vwi'
+alias ln='ln -vi'
 
 # GLOBAL ALIAS (to be used at the end, mostly) for zsh
 # alias -g G='| rg'
@@ -58,9 +58,8 @@ alias cd='z'
 [ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" # Haskell
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)" # make less more friendly for non-text input files, see lesspipe(1)
 
-get() {  # my custom command to copy paths of files and folders to clipboard using fuzy finding
-  find "${2:-.}" -name ".*" | fzf -m -1 -q "${1:-i}" | tr '\n' ' ' | clip.exe
-}
+# my custom command to copy paths of files and folders to clipboard using fuzy finding
+get() { find "${2:-.}" -name ".*" | fzf -m -1 -q "${1:-i}" | tr '\n' ' ' | clip.exe; }
 
 dora() { # dora the explorer yayy
   path="${1:-.}"
@@ -69,8 +68,7 @@ dora() { # dora the explorer yayy
   explorer.exe "$windows_path"
 }
 
-hexdiff() { # diff in hex
-  bash -c "diff --color=auto -y <(xxd $1) <(xxd $2)" | less
-}
-
-notify-send() { wsl-notify-send.exe --category $WSL_DISTRO_NAME "${@}"; }
+hexdiff() { bash -c "diff --color=auto -y <(xxd $1) <(xxd $2)" | less; }
+notify_send() { wsl-notify-send.exe --category "$WSL_DISTRO_NAME" "${@}"; }
+git_branch() { git branch --show-current 2> /dev/null | sed -e 's/\(.*\)/ (\1)/'; }
+PS1="\$(git_branch)$PS1"
