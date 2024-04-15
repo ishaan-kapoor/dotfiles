@@ -19,6 +19,15 @@ nnoremap <leader>o o<Esc>
 nnoremap <leader>O O<Esc>
 vnoremap <leader>srt :sort<CR>
 
+nnoremap gh 0
+nnoremap gl $
+nnoremap gH g0
+nnoremap gL g$
+vnoremap gh 0
+vnoremap gl $
+vnoremap gH g0
+vnoremap gL g$
+
 vnoremap > >gv
 vnoremap < <gv
 vnoremap <TAB> >gv

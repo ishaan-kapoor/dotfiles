@@ -3,6 +3,8 @@
   name = ishaan-kapoor
 [core]
   editor = vim
+  autocrlf = true
+  eol = lf
 [status]
   relativePaths = false # false = show path relative to git root, not relative to cwd
 [log]
