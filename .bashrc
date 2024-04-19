@@ -26,12 +26,6 @@ shopt -s direxpand                # expand directories
 shopt -s dirspell                 # attempt spelling correction of dirname
 shopt -u no_empty_cmd_completion  # enable empty command completion
 
-
-[ -f ~/.config/shellrc ] && source ~/.config/shellrc
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-# [ -d "$HOME/.local/share/nvim/mason/bin/" ] && export PATH="$HOME/.local/share/nvim/mason/bin/:$PATH"
-
 export LS_COLORS="$LS_COLORS:ow=30;44:"
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01' # colored GCC warnings and errors
 
@@ -49,3 +43,8 @@ if [ -f /etc/bash.command-not-found ]; then
     . /etc/bash.command-not-found
     # sudo wget -O /etc/bash.command-not-found https://raw.githubusercontent.com/hkbakke/bash-insulter/master/src/bash.command-not-found
 fi
+
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/.config/shellrc ] && source ~/.config/shellrc
+

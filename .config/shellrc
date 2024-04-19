@@ -56,6 +56,7 @@ alias cd='z'
 
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env" # Rust
 [ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" # Haskell
+[ -x "$HOME/.local/bin/fzf-git.sh" ] && . "$HOME/.local/bin/fzf-git.sh" # fzf-git
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)" # make less more friendly for non-text input files, see lesspipe(1)
 
 # my custom command to copy paths of files and folders to clipboard using fuzy finding
@@ -72,3 +73,5 @@ hexdiff() { bash -c "diff --color=auto -y <(xxd $1) <(xxd $2)" | less; }
 notify_send() { wsl-notify-send.exe --category "$WSL_DISTRO_NAME" "${@}"; }
 git_branch() { git branch --show-current 2> /dev/null | sed -e 's/\(.*\)/ (\1)/'; }
 PS1="\$(git_branch)$PS1"
+
+export BAT_THEME=gruvbox-dark
