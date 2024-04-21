@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# mvn clean install
+cd ./target
+appName=$(ls *.war)
+echo ${appName%.war}
+# trash-put "/home/ishaan/apache-tomcat-10.1.20/webapps/$appName"
+# cp "./$appName" ~/apache-tomcat-10.1.20/webapps/
+# curl --user script:java "http://localhost:8080/manager/text/reload?path=/${appName%.war}"
+#

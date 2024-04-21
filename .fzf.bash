@@ -7,6 +7,7 @@ fi
 eval "$(fzf --bash)"
 
 _fzf_setup_completion path v
+_fzf_setup_completion dir dora
 
 # -- Use fd instead of fzf --
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"

@@ -13,7 +13,8 @@ alias ip='ip --color=auto'
 alias curl='curl --progress-bar'
 
 # alias rm='rm -vi'
-alias rm='echo "trash-put ??" && rm -vi'
+# alias rm='echo "trash-put ??" && rm -vi'
+alias rm='trash-put'
 alias cp='cp -vi'
 alias mv='mv -vi'
 alias ln='ln -vi'
@@ -44,13 +45,13 @@ alias dotfiles_git='/usr/bin/git --git-dir=/home/ishaan/.dotfiles/ --work-tree=/
 
 export EDITOR='vim'
 export VISUAL='vim'
-export BROWSER="/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
+export BROWSER="/mnt/c/Program Files\ (x86)/Microsoft/Edge/Application/msedge.exe"
 
 # eval "$(thefuck --alias --enable-experimental-instant-mode)"
 eval "$(zoxide init "$(echo "$SHELL" | tr '/' '\n' | tail -1)")"
 alias cd='z'
 
-[ -d "$HOME/.local/share/nvim/mason/bin/" ] && export PATH="$HOME/.local/share/nvim/mason/bin/:$PATH"
+[ -d "$HOME/.local/share/nvim/mason/bin/" ] && export PATH="$HOME/.local/share/nvim/mason/bin/:$PATH"  # mason path
 [ -d "/usr/local/cuda-12.2/bin/" ] && export PATH="/usr/local/cuda-12.2/bin/:$PATH"
 [ -d "/usr/local/cuda-12.2/lib64/" ] && export LD_LIBRARY_PATH="/usr/local/cuda-12.2/lib64/:$LD_LIBRARY_PATH"
 
