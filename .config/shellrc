@@ -45,11 +45,16 @@ alias dotfiles_git='/usr/bin/git --git-dir=/home/ishaan/.dotfiles/ --work-tree=/
 
 export EDITOR='vim'
 export VISUAL='vim'
-export BROWSER="/mnt/c/Program Files\ (x86)/Microsoft/Edge/Application/msedge.exe"
+# export BROWSER='/mnt/c/Program\ Files\ \(x86\)/Microsoft/Edge/Application/msedge.exe'
+export BROWSER='explorer.exe microsoft-edge:'
 
-# eval "$(thefuck --alias --enable-experimental-instant-mode)"
-eval "$(zoxide init "$(echo "$SHELL" | tr '/' '\n' | tail -1)")"
-alias cd='z'
+if [ -x "$(command -v thefuck)" ]; then
+  eval "$(thefuck --alias --enable-experimental-instant-mode)"
+fi
+if [ -x "$(command -v zoxide)" ]; then
+  eval "$(zoxide init "$(echo "$SHELL" | tr '/' '\n' | tail -1)")"
+  alias cd='z'
+fi
 
 [ -d "$HOME/.local/share/nvim/mason/bin/" ] && export PATH="$HOME/.local/share/nvim/mason/bin/:$PATH"  # mason path
 [ -d "/usr/local/cuda-12.2/bin/" ] && export PATH="/usr/local/cuda-12.2/bin/:$PATH"

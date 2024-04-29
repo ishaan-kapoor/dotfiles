@@ -104,10 +104,11 @@ elif [[ $# -gt 1 ]]; then
     url=${remote_url%.git}
   fi
 
-  case "$(uname -s)" in
-    Darwin) open "$url$path"     ;;
-    *)      xdg-open "$url$path" ;;
-  esac
+  # case "$(uname -s)" in
+  #   Darwin) open "$url$path"     ;;
+  #   *)      xdg-open "$url$path" ;;
+  # esac
+  $BROWSER"$url$path" 2> ~/.cache/fzf_git_err
   exit 0
 fi
 

@@ -19,6 +19,7 @@
 [alias]
   LOG = !git log --raw --graph --pretty=format:'%Cred%h %Creset%s %Cgreen%d%n%aN %Cblue(%ah)%Creset%n%b' $(git rev-list -g --all)
   BRANCH = !~/.local/bin/better-branch
+  list = ls-tree --full-tree --name-only -r
   s = status
   c = commit -m
   aa = add -A
