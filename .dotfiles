@@ -1,0 +1,42 @@
+#!/bin/sh
+# This script is based on
+# https://github.com/P403n1x87/dotfiles
+
+DOTFILES_REPO="$HOME/.dotfiles.git"
+DOTFILES_BAK="$HOME/.dotfiles.bak"
+dotfiles_git() {
+  /usr/bin/git --git-dir="$DOTFILES_REPO" --work-tree="$HOME" "$@"
+}
+
+# We make a backup copy of all the dotfiles that would be overwritten by the
+# checkout command. This step is also required for otherwise the command
+# is bound to fail if some files exists already within the Home folder.
+mkdir -p "$DOTFILES_BAK"
+
+# Try to checkout the dotfiles into the Home folder.
+dotfiles_checkout() {
+  if output="$(dotfiles_git checkout 2>&1)"; then
+  # output="$(dotfiles_git checkout 2>&1)"
+  # if [ $? = 0 ]; then
+    echo "Dotfiles checked out successfully into $HOME"
+  else
+    if [ "$1" = 1 ]; then
+      echo "FATAL: Something went wrong while checking out."
+      echo "  Quite likely, I wasn't able to move all the existing dotfiles"
+      echo "  into the backup location $DOTFILES_BAK."
+      exit 1
+    fi
+    echo "Backing up pre-existing dot files into $DOTFILES_BAK"
+    echo "$output"
+    echo "$output" | grep -E "\s+\."
+    echo "$output" | grep -E "\s+\." | awk '{print $1}'
+    echo "$output" | grep -E "\s+\." | awk '{print $1}' | xargs -I{} mv -vi {} "$DOTFILES_BAK"/{}
+    dotfiles_checkout 1  # Avoid infinite recursion
+  fi
+}
+
+dotfiles_checkout 0
+dotfiles_git config --local status.showUntrackedFiles no
+
+# Cleanup
+test -f "$HOME/README.md" && rm "$HOME/README.md"

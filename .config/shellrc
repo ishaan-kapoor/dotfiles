@@ -41,7 +41,11 @@ alias python='python3'
 alias git_log=' git LOG $(git rev-list -g --all)'
 # alias npm='sudo npm'
 
-alias dotfiles_git='/usr/bin/git --git-dir=/home/ishaan/.dotfiles/ --work-tree=/home/ishaan'
+DOTFILES_REPO="$HOME/.dotfiles.git"
+# DOTFILES_BAK="$HOME/.dotfiles.bak"
+dotfiles_git() {
+  /usr/bin/git --git-dir="$DOTFILES_REPO" --work-tree="$HOME" "$@"
+}
 
 export EDITOR='vim'
 export VISUAL='vim'
@@ -59,6 +63,10 @@ fi
 [ -d "$HOME/.local/share/nvim/mason/bin/" ] && export PATH="$HOME/.local/share/nvim/mason/bin/:$PATH"  # mason path
 [ -d "/usr/local/cuda-12.2/bin/" ] && export PATH="/usr/local/cuda-12.2/bin/:$PATH"
 [ -d "/usr/local/cuda-12.2/lib64/" ] && export LD_LIBRARY_PATH="/usr/local/cuda-12.2/lib64/:$LD_LIBRARY_PATH"
+export ANDROID_HOME="/mnt/c/Ishaan/Programs/AndroidStudioSDK/"
+[ -d $ANDROID_HOME ] && export PATH="$ANDROID_HOME/emulator/:$PATH"
+[ -d $ANDROID_HOME ] && export PATH="$ANDROID_HOME/platform-tools/:$PATH"
+[ -d $ANDROID_HOME ] && export PATH="$ANDROID_HOME/tools/bin/:$PATH"
 
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env" # Rust
 [ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" # Haskell
