@@ -3,6 +3,13 @@
 # https://github.com/P403n1x87/dotfiles
 
 DOTFILES_REPO="$HOME/.dotfiles.git"
+if [ ! -d "$DOTFILES_REPO" ]; then
+  echo "Error: dotfiles git repository not found."
+  echo "  Directory '$DOTFILES_REPO' does not exist."
+  echo "  Please clone it from https://github.com/ishaan-kapoor/dotfiles"
+  exit 1
+fi
+
 DOTFILES_BAK="$HOME/.dotfiles.bak"
 dotfiles_git() {
   /usr/bin/git --git-dir="$DOTFILES_REPO" --work-tree="$HOME" "$@"
@@ -29,8 +36,6 @@ dotfiles_checkout() {
     fi
     echo "Backing up pre-existing dot files into $DOTFILES_BAK"
     echo "$output"
-    echo "$output" | grep -E "\s+\."
-    echo "$output" | grep -E "\s+\." | awk '{print $1}'
     echo "$output" | grep -E "\s+\." | awk '{print $1}' | xargs -I{} mv -vi {} "$DOTFILES_BAK"/{}
     dotfiles_checkout 1  # Avoid infinite recursion
   fi
@@ -42,3 +47,4 @@ dotfiles_git config --local status.showUntrackedFiles no
 # Cleanup
 test -f "$HOME/README.md" && rm "$HOME/README.md"
 test -f "$HOME/.dotfiles.setup" && rm "$HOME/.dotfiles.setup"
+test -f "$DOTFILES_BAK/.dotfiles.setup" && rm "$DOTFILES_BAK/.dotfiles.setup"
