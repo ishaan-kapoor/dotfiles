@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # This script is based on
 # https://github.com/P403n1x87/dotfiles
 
@@ -7,6 +7,7 @@ DOTFILES_BAK="$HOME/.dotfiles.bak"
 dotfiles_git() {
   /usr/bin/git --git-dir="$DOTFILES_REPO" --work-tree="$HOME" "$@"
 }
+export -f dotfiles_git
 
 # We make a backup copy of all the dotfiles that would be overwritten by the
 # checkout command. This step is also required for otherwise the command
@@ -40,3 +41,4 @@ dotfiles_git config --local status.showUntrackedFiles no
 
 # Cleanup
 test -f "$HOME/README.md" && rm "$HOME/README.md"
+test -f "$HOME/.dotfiles.setup" && rm "$HOME/.dotfiles.setup"
