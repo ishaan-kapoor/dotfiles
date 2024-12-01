@@ -61,6 +61,17 @@ vnoremap ;p "0p
 nnoremap ;P "0P
 vnoremap ;P "0P
 
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+nnoremap <leader>d "+d
+nnoremap <leader>D "+D
+vnoremap <leader>d "+d
+vnoremap <leader>D "+D
+
 " Increment/Decrement Number Under Cursor
 nnoremap <leader>+ <C-a>
 nnoremap <leader>- <C-x>

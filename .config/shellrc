@@ -18,6 +18,8 @@ alias rm='trash-put'
 alias cp='cp -vi'
 alias mv='mv -vi'
 alias ln='ln -vi'
+alias ...="cd ../../"
+alias ....="cd ../../../"
 
 # GLOBAL ALIAS (to be used at the end, mostly) for zsh
 # alias -g G='| rg'
@@ -29,6 +31,8 @@ alias ln='ln -vi'
 # alias bright='sudo chmod 666 /sys/class/backlight/intel_backlight/brightness' # for Arch dualboot
 alias cwd='pwd | clip.exe' # clip.exe for WSL and xclip for xorg based systems
 alias hr='printf "%$(tput cols)s\n" | tr " " "-"'  # a separator line
+alias :wqa='exit' # cause why not
+alias :qa='exit' # cause why not
 alias :wq='exit' # cause why not
 alias :q='exit' # cause why not
 
