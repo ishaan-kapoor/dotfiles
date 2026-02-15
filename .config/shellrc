@@ -36,7 +36,7 @@ alias :qa='exit' # cause why not
 alias :wq='exit' # cause why not
 alias :q='exit' # cause why not
 
-alias v='nvim'
+# alias v='nvim --clean'
 alias cls='clear'
 alias apt='sudo apt'
 alias nala='sudo nala'
@@ -90,6 +90,8 @@ dora() { # dora the explorer yayy
 hexdiff() { bash -c "diff --color=auto -y <(xxd $1) <(xxd $2)" | less; }
 notify_send() { wsl-notify-send.exe --category "$WSL_DISTRO_NAME" "${@}"; }
 git_branch() { git branch --show-current 2> /dev/null | sed -e 's/\(.*\)/ (\1)/'; }
+p() { powershell.exe -NoProfile -Command "Get-Clipboard" | tr -d '\r'; }
+c() { clip.exe; }
 PS1="\$(git_branch)$PS1"
 
 export BAT_THEME=gruvbox-dark
