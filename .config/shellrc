@@ -1,6 +1,8 @@
 #!/bin/sh
 
-bind -m vi-insert '"kj":vi-movement-mode'
+if [ -t 0 ]; then
+  bind -m vi-insert '"kj":vi-movement-mode'
+fi
 # bind -m vi-command 'Control-l: clear-screen'
 
 # test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -12,9 +14,9 @@ alias diff='diff --color=auto'
 alias ip='ip --color=auto'
 alias curl='curl --progress-bar'
 
-# alias rm='rm -vi'
+alias rm='rm -vi'
 # alias rm='echo "trash-put ??" && rm -vi'
-alias rm='trash-put'
+# alias rm='trash-put'
 alias cp='cp -vi'
 alias mv='mv -vi'
 alias ln='ln -vi'
@@ -36,7 +38,10 @@ alias :qa='exit' # cause why not
 alias :wq='exit' # cause why not
 alias :q='exit' # cause why not
 
-# alias v='nvim --clean'
+alias v='nvim'
+alias vr='nvim -R'
+alias vc='nvim --clean'
+alias lg='lazygit'
 alias cls='clear'
 alias apt='sudo apt'
 alias nala='sudo nala'
@@ -50,6 +55,11 @@ DOTFILES_REPO="$HOME/.dotfiles.git"
 dotfiles_git() {
   /usr/bin/git --git-dir="$DOTFILES_REPO" --work-tree="$HOME" "$@"
 }
+dotfiles_git_lazy() {
+  lazygit --git-dir="$DOTFILES_REPO" --work-tree="$HOME" "$@"
+}
+alias dg="dotfiles_git"
+alias dgl="dotfiles_git_lazy"
 
 export EDITOR='vim'
 export VISUAL='vim'

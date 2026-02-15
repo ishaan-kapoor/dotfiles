@@ -1,0 +1,7 @@
+customCommands:
+  # Reset selected commit date (from commits pane)
+  - key: "D"
+    context: "commits"
+    command: "git-reset-commit-date {{.SelectedLocalCommit.Sha}}"
+    description: "Reset commit date"
+    output: terminal
