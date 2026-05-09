@@ -43,6 +43,10 @@ dotfiles_checkout() {
 dotfiles_checkout 0
 dotfiles_git config --local status.showUntrackedFiles no
 
+echo "Updating submodules..."
+dotfiles_git submodule update --init --recursive
+
 # Cleanup
 test -f "$HOME/README.md" && rm "$HOME/README.md"
+test -f "$HOME/.dotfiles.setup" && rm "$HOME/.dotfiles.setup"
 test -f "$DOTFILES_BAK/.dotfiles.setup" && rm "$DOTFILES_BAK/.dotfiles.setup"

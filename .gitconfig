@@ -92,3 +92,5 @@
     line-numbers-right-style = "#3d4163"
     line-numbers-left-format = "{nm:>4}│"
     line-numbers-right-format = "{np:>4}│"
+[submodule]
+	recurse = true
