@@ -5,3 +5,21 @@ customCommands:
     command: "git-reset-commit-date {{.SelectedLocalCommit.Sha}}"
     description: "Reset commit date"
     output: terminal
+  - key: "U"
+    context: "localBranches"
+    command: "git branch --unset-upstream {{.SelectedLocalBranch.Name}}"
+    description: "Unset upstream tracking"
+    output: terminal
+  - key: "X"
+    context: "global"
+    description: "Remove .git/index.lock"
+    prompts:
+      - type: "confirm"
+        title: "Delete Git lock file?"
+        body: "Remove $(git rev-parse --git-dir)/index.lock"
+    command: 'rm -f "$(git rev-parse --git-dir)/index.lock"'
+    output: terminal
+git:
+  pagers:
+    - pager: delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+      colorArg: always
