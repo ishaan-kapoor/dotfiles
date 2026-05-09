@@ -19,7 +19,3 @@ customCommands:
         body: "Remove $(git rev-parse --git-dir)/index.lock"
     command: 'rm -f "$(git rev-parse --git-dir)/index.lock"'
     output: terminal
-git:
-  pagers:
-    - pager: delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
-      colorArg: always
