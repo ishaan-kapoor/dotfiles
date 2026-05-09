@@ -1,0 +1,118 @@
+#!/bin/bash
+set -e
+
+FORCE=false
+
+# Parse flags
+while getopts "f" opt; do
+    case $opt in
+        f) FORCE=true ;;
+        *) echo "Usage: $0 [-f] <commit-sha> [new-date]" >&2; exit 1 ;;
+    esac
+done
+shift $((OPTIND - 1))
+
+# Usage check
+if [ -z "$1" ]; then
+    echo "Usage: $0 [-f] <commit-sha> [new-date]" >&2
+    echo "  -f    Force (skip interactive prompts)" >&2
+    exit 1
+fi
+
+# Validate commit exists and normalize to full SHA
+if ! COMMIT_SHA=$(git rev-parse --verify "$1^{commit}" 2>/dev/null); then
+    echo "Error: Invalid commit SHA: $1" >&2
+    exit 1
+fi
+
+# Get short SHA matching git's core.abbrev for sed pattern
+SHORT_SHA=$(git rev-parse --short "$COMMIT_SHA")
+
+if [ -n "$2" ]; then
+    NEW_DATE="$2"
+elif [ -t 0 ] && [ "$FORCE" = false ]; then
+    # Interactive mode - prompt with editable default
+    DEFAULT_DATE=$(date -Iseconds)
+    read -e -i "$DEFAULT_DATE" -p "New date: " NEW_DATE
+    NEW_DATE="${NEW_DATE:-$DEFAULT_DATE}"
+else
+    NEW_DATE=$(date -Iseconds)
+fi
+
+# Check for rebase in progress
+if [ -d "$(git rev-parse --git-dir)/rebase-merge" ] || [ -d "$(git rev-parse --git-dir)/rebase-apply" ]; then
+    echo "Error: Rebase already in progress" >&2
+    exit 1
+fi
+
+# Check for uncommitted changes (only required for non-HEAD commits)
+HAS_CHANGES=false
+if ! git diff-index --quiet HEAD --; then
+    HAS_CHANGES=true
+    if [ "$COMMIT_SHA" != "$(git rev-parse HEAD)" ]; then
+        echo "Error: Working tree has uncommitted changes (required clean for rebase)" >&2
+        exit 1
+    fi
+fi
+
+# Check that commit is an ancestor of HEAD (in current branch's history)
+if ! git merge-base --is-ancestor "$COMMIT_SHA" HEAD; then
+    echo "Error: Commit $SHORT_SHA is not in current branch's history" >&2
+    exit 1
+fi
+
+# Warn about merge commits
+if [ "$(git cat-file -p "$COMMIT_SHA" | grep -c '^parent ')" -gt 1 ]; then
+    echo "Warning: This is a merge commit. Rebasing may produce unexpected results." >&2
+    if [ "$FORCE" = true ]; then
+        echo "Forcing due to -f flag..." >&2
+    elif [ -t 0 ]; then
+        echo "Press Enter to continue or Ctrl+C to abort..."
+        read -r
+    else
+        echo "Use -f flag to force, or run manually." >&2
+        exit 1
+    fi
+fi
+
+OLD_HEAD=$(git rev-parse HEAD)
+
+# Trap for rebase failure
+cleanup_on_failure() {
+    echo "" >&2
+    echo "Rebase failed. To recover:" >&2
+    echo "  git rebase --abort    # abandon the change" >&2
+    echo "  git reset --hard $OLD_HEAD    # restore original state" >&2
+}
+
+if [ "$COMMIT_SHA" = "$(git rev-parse HEAD)" ]; then
+    # Stash changes if any, amend, then restore
+    if [ "$HAS_CHANGES" = true ]; then
+        git stash push -q -m "git-reset-commit-date temporary stash"
+        trap 'git stash pop -q --index' EXIT
+    fi
+    GIT_COMMITTER_DATE="$NEW_DATE" git commit --amend --no-edit --date="$NEW_DATE"
+    if [ "$HAS_CHANGES" = true ]; then
+        trap - EXIT
+        git stash pop -q --index
+    fi
+else
+    trap cleanup_on_failure ERR
+
+    export NEW_DATE
+    # Use --root for root commit (no parent), otherwise rebase from parent
+    if ! git rev-parse --verify "$COMMIT_SHA^" >/dev/null 2>&1; then
+        GIT_SEQUENCE_EDITOR='sed -i.bak -E "s/^pick[[:space:]]+'"$SHORT_SHA"'/edit '"$SHORT_SHA"'/"' \
+            git rebase -i --root
+    else
+        GIT_SEQUENCE_EDITOR='sed -i.bak -E "s/^pick[[:space:]]+'"$SHORT_SHA"'/edit '"$SHORT_SHA"'/"' \
+            git rebase -i "${COMMIT_SHA}^"
+    fi
+
+    GIT_COMMITTER_DATE="$NEW_DATE" git commit --amend --no-edit --date="$NEW_DATE"
+    git rebase --continue
+
+    trap - ERR
+fi
+
+echo "Done. To undo: git reset --hard $OLD_HEAD"
